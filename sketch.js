@@ -1,11 +1,6 @@
+//data
 let questionsList;
 let questions;
-let width = 1242;
-let height = 2208;
-
-let title = "WHY?"
-let titleX = 10;
-let titleY = 10;
 
 // text
 let text_size = 35;
@@ -15,15 +10,30 @@ let text_width = 200;
 let text_height = 100;
 let offsetY = text_size / 5 + text_size;
 
+//layout
+let width = 1242;
+let height = 2208;
+
+let titleSize = 100;
+let title = "WHY?"
+let titleX = 30;
+let titleY = 10;
+
+let buttonNum = 10;
+
 //button
 let gui;
-let buttons;
-let buttonX = 50;
-let buttonY = 50;
-let buttonW = width - 2*buttonX;
-let buttonH = text_size*1.8;
+var buttons = new Array(); //全局变量
+let buttonX = 50; // init
+let buttonY = 50; //init
+let buttonW = width - 2 * buttonX;
+let buttonH = text_size * 1.8;
 let buttonOffset = buttonH + 5;
 
+//button presssed
+let buttonPreNum = 0;
+
+//***************************************************************MAIN */
 function preload() {
     questionsList = loadStrings('data/2_chatbots.txt');
 }
@@ -34,10 +44,8 @@ function setup() {
     colorMode(RGB, 255, 255, 255, 1);
     background(100);
 
-    newQuestions();
-
-
-    newButtons();
+    //newQuestions();
+    newButtons(0);
 }
 
 function draw() {
@@ -48,35 +56,41 @@ function draw() {
 
     showButtons();
 
+    //监听按钮是否按下
+    for (let i in buttons) {
+        if (buttons[i].isPressed) {
+            console.log(buttons[i].isPressed + buttons[i].labelOff);
+            console.log(i);
+
+            buttonPreNum = i;
+        }
+    }
+
+    if
+
+    /*
     for (let i in questions) {
         let q = questions[i];
-        //console.log(q);
-        //q.show();
+        console.log(q);
+        q.show();
     }
+    */
 }
 
 function showTitle() {
-    textSize(70);
+    textSize(titleSize);
     textStyle(BOLD);
     textAlign(LEFT, TOP);
     fill(color(255, 204, 0));
     text(title, titleX, titleY);
 }
 
-function newQuestions() {
-    let text_color = color(255, 204, 0);
-
-    questions = new Array();
-    for (let i in questionsList) {
-        questions.push(new Questions(textX, textY = textY + offsetY, text_width, text_height, questionsList[i], text_size, text_color));
-        //console.log(questions[i]);
-    }
-}
-
-function newButtons() {
+function newButtons(startNum) {
     gui = createGui();
-    buttons = new Array();
-    for (let i in questionsList) {
+    //buttons = new Array(); //全局变量
+
+    for (let i = startNum;
+        (i - startNum) < buttonNum; i++) {
         let b = createButton(questionsList[i], buttonX, buttonY = buttonY + buttonOffset, buttonW, buttonH);
         b.labelOn = "嗯嗯是啊是啊";
         b.setStyle({
@@ -92,6 +106,18 @@ function showButtons() {
     drawGui();
 }
 
+
+//***************************************************************TEST */
+
+function newQuestions() {
+    let text_color = color(255, 204, 0);
+
+    questions = new Array();
+    for (let i in questionsList) {
+        questions.push(new Questions(textX, textY = textY + offsetY, text_width, text_height, questionsList[i], text_size, text_color));
+        //console.log(questions[i]);
+    }
+}
 class Questions { // 一个问题
     constructor(x, y, x2, y2, textContent, size, col) {
         this.x = x;
