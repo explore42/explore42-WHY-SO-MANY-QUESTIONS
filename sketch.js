@@ -20,8 +20,8 @@ let gui;
 let buttons;
 let buttonX = 50;
 let buttonY = 50;
-let buttonW = width;
-let buttonH = text_size*1.2;
+let buttonW = width - 2*buttonX;
+let buttonH = text_size*1.8;
 let buttonOffset = buttonH + 5;
 
 function preload() {
