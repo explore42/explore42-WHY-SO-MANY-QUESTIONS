@@ -66,7 +66,7 @@ function draw() {
         }
     }
 
-    if
+    
 
     /*
     for (let i in questions) {
